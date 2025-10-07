@@ -1,37 +1,26 @@
-# Revolt Desktop
+# Old Stoat Desktop
 
 ## ⚠️ Deprecation notice ⚠️
 
-This project will soon be deprecated in favour of a new desktop app built with Tauri. You can follow progress [here](https://github.com/revoltchat/frontend/issues/14).
+This project is an simply revive of the revite desktop client using the old version of Stoat until the new client is finished.
+You can check out the new Desktop Client [here](https://github.com/stoatchat/for-desktop).
 
 ## Description
 
-This is a desktop application for Revolt built on Electron.
+This is a desktop application for Stoat built on Electron.
 
 ## Stack
 
 -   [Electron](https://electronjs.org/)
 -   [Electron Builder](https://www.electron.build/)
 
-## Resources
-
-### Revolt Desktop
-
--   [Revolt Desktop Issue Board](https://github.com/revoltchat/desktop/issues)
-
-### Revolt
-
--   [Revolt Project Board](https://github.com/revoltchat/revolt/discussions) (Submit feature requests here)
--   [Revolt Testers Server](https://app.revolt.chat/invite/Testers)
--   [Contribution Guide](https://developers.revolt.chat/contributing)
-
 ## Quick Start
 
-Get Revolt Desktop up and running locally.
+Get Old Stoat Desktop up and running locally.
 
 ```
-git clone https://github.com/revoltchat/desktop
-cd desktop
+git clone https://github.com/etncc/Old-Stoat-Desktop
+cd Old-Stoat-Desktop
 yarn
 yarn build:bundle
 yarn start
@@ -55,4 +44,4 @@ There are also numerous OS-specific commands related to building and testing, al
 
 ## License
 
-Revolt Desktop is licensed under the [GNU Affero General Public License v3.0](https://github.com/revoltchat/desktop/blob/master/LICENSE).
+Old Stoat Desktop is licensed under the [GNU Affero General Public License v3.0](https://github.com/etncc/Old-Stoat-Desktop/blob/master/LICENSE).
