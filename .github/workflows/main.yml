@@ -37,44 +37,56 @@ jobs:
       #with:
        # path: ~/Stoat-linux/
         #name: Stoat-linux
-  build-windows:
+build-windows:
+  runs-on: windows-latest
 
-    runs-on: windows-latest
-
-    steps:
+  steps:
     - uses: actions/checkout@v4
+
     - name: Enable Developer Command Prompt
       uses: ilammy/msvc-dev-cmd@v1.12.1
+
     - name: Install Yarn
       run: yarn install
+
     - name: Build For Windows
-      id: build-windows
       run: |
         yarn build:bundle
         yarn build:windows --publish never
-    - name: Pack Build Files
+
+    - name: Debug dist folder
+      shell: powershell
       run: |
-        mkdir D:\a\desktop\desktop\dist\win-unpacked
-        mkdir D:\a\desktop\Stoat-windows
-        mv D:\a\desktop\desktop\dist\win-unpacked\* D:\a\desktop\Stoat-windows
-        mkdir D:\a\desktop\Stoat-windows-Setup
-        mv D:\a\desktop\desktop\dist\*.exe D:\a\desktop\Stoat-windows-Setup.exe
-        mkdir D:\a\desktop\Stoat-windows-appx
-        mv D:\a\desktop\desktop\dist\*.appx D:\a\desktop\Stoat-windows-appx
+        Get-ChildItem -Recurse "$env:GITHUB_WORKSPACE\dist"
+
+    - name: Pack Build Files
+      shell: powershell
+      run: |
+        New-Item -ItemType Directory -Path "$env:GITHUB_WORKSPACE\Stoat-windows"
+        Move-Item -Path "$env:GITHUB_WORKSPACE\dist\win-unpacked\*" -Destination "$env:GITHUB_WORKSPACE\Stoat-windows"
+
+        New-Item -ItemType Directory -Path "$env:GITHUB_WORKSPACE\Stoat-windows-Setup"
+        Move-Item -Path "$env:GITHUB_WORKSPACE\dist\*.exe" -Destination "$env:GITHUB_WORKSPACE\Stoat-windows-Setup"
+
+        New-Item -ItemType Directory -Path "$env:GITHUB_WORKSPACE\Stoat-windows-appx"
+        Move-Item -Path "$env:GITHUB_WORKSPACE\dist\*.appx" -Destination "$env:GITHUB_WORKSPACE\Stoat-windows-appx"
+
     - name: Publish Zipfile
       uses: actions/upload-artifact@v4
       with:
-        path: D:\a\desktop\Stoat-windows
+        path: ${{ github.workspace }}\Stoat-windows
         name: Stoat-windows
+
     - name: Publish Installer
       uses: actions/upload-artifact@v4
       with:
-        path: D:\a\desktop\Stoat-windows-Setup.exe
+        path: ${{ github.workspace }}\Stoat-windows-Setup
         name: Stoat-windows-Setup
+
     - name: Publish Appx
       uses: actions/upload-artifact@v4
       with:
-        path: D:\a\desktop\Stoat-windows-appx
+        path: ${{ github.workspace }}\Stoat-windows-appx
         name: Stoat-windows-appx
   build-macos:
 
