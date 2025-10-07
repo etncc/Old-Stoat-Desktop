@@ -64,7 +64,6 @@ jobs:
         name: Stoat-windows-appx
 
  build-linux:
- 
   runs-on: ubuntu-latest
 
   steps:
@@ -73,29 +72,12 @@ jobs:
     - name: Install Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y flatpak flatpak-builder libfuse2
         yarn install
-
-    - name: Setup Flatpak SDKs
-      run: |
-        # Add Flathub remote if not already added
-        flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-        
-        # Install required SDK and platform
-        flatpak install --user -y flathub org.freedesktop.Platform//22.08
-        flatpak install --user -y flathub org.freedesktop.Sdk//22.08
-
 
     - name: Build For Linux
       run: |
         yarn build:bundle
         yarn build:linux --publish never
-
-    - name: Build Flatpak Package
-      run: |
-        mkdir -p flatpak-build
-        flatpak-builder --force-clean flatpak-build flatpak-Stoat.json
-        flatpak build-bundle flatpak-build Stoat.flatpak com.Stoat.App
 
     - name: Debug dist folder
       run: ls -R dist
@@ -108,12 +90,6 @@ jobs:
         mkdir -p $GITHUB_WORKSPACE/Stoat-linux
         mv dist/*.tar.gz $GITHUB_WORKSPACE/Stoat-linux || echo "No .tar.gz found"
 
-
-    - name: Pack Flatpak
-      run: |
-        mkdir -p $GITHUB_WORKSPACE/Stoat-flatpak
-        mv Stoat.flatpak $GITHUB_WORKSPACE/Stoat-flatpak
-
     - name: Publish AppImage
       uses: actions/upload-artifact@v4
       with:
@@ -125,12 +101,6 @@ jobs:
       with:
         path: ${{ github.workspace }}/Stoat-linux
         name: Stoat-linux
-
-    - name: Publish Flatpak
-      uses: actions/upload-artifact@v4
-      with:
-        path: ${{ github.workspace }}/Stoat-flatpak
-        name: Stoat-flatpak
 
  build-macos:
   runs-on: macos-11
