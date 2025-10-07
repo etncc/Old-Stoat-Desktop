@@ -63,31 +63,60 @@ jobs:
         path: ${{ github.workspace }}\Stoat-windows-appx
         name: Stoat-windows-appx
 
-#  build-linux:
+ build-linux:
+ 
+  runs-on: ubuntu-latest
 
- #   runs-on: ubuntu-latest
-  #  steps:
-   # - uses: actions/checkout@v4
-    #- name: Install Yarn
-     # run: yarn install
-    #- name: Build For Linux
-     # id: build-linux
-      #run: |
-     #   yarn build:bundle
-      #  yarn build:linux --publish never
-   # - name: Pack Build Files
-    #  run: |
-     #   mkdir ~/Stoat-linux-AppImage
-      #  mv dist/*.AppImage ~/Stoat-linux-AppImage
-       # mkdir ~/Stoat-linux
-        #mv dist/*.tar.gz ~/Stoat-linux
-    #- name: Publish AppImage
-     # uses: actions/upload-artifact@v4
-      #with:
-       # path: ~/Stoat-linux-AppImage
-        #name: Stoat-linux-AppImage
-    #- name: Publish Tarfile
-     # uses: actions/upload-artifact@v4
-      #with:
-       # path: ~/Stoat-linux/
-        #name: Stoat-linux
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y flatpak flatpak-builder libfuse2
+        yarn install
+
+    - name: Build For Linux
+      run: |
+        yarn build:bundle
+        yarn build:linux --publish never
+
+    - name: Debug dist folder
+      run: ls -R dist
+
+    - name: Pack AppImage and Tarball
+      run: |
+        mkdir -p $GITHUB_WORKSPACE/Stoat-linux-AppImage
+        mv dist/*.AppImage $GITHUB_WORKSPACE/Stoat-linux-AppImage || echo "No .AppImage found"
+
+        mkdir -p $GITHUB_WORKSPACE/Stoat-linux
+        mv dist/*.tar.gz $GITHUB_WORKSPACE/Stoat-linux || echo "No .tar.gz found"
+
+    - name: Build Flatpak Package
+      run: |
+        mkdir -p flatpak-build
+        flatpak-builder --force-clean flatpak-build flatpak-Stoat.json
+        flatpak build-bundle flatpak-build Stoat.flatpak com.Stoat.App
+
+    - name: Pack Flatpak
+      run: |
+        mkdir -p $GITHUB_WORKSPACE/Stoat-flatpak
+        mv Stoat.flatpak $GITHUB_WORKSPACE/Stoat-flatpak
+
+    - name: Publish AppImage
+      uses: actions/upload-artifact@v4
+      with:
+        path: ${{ github.workspace }}/Stoat-linux-AppImage
+        name: Stoat-linux-AppImage
+
+    - name: Publish Tarfile
+      uses: actions/upload-artifact@v4
+      with:
+        path: ${{ github.workspace }}/Stoat-linux
+        name: Stoat-linux
+
+    - name: Publish Flatpak
+      uses: actions/upload-artifact@v4
+      with:
+        path: ${{ github.workspace }}/Stoat-flatpak
+        name: Stoat-flatpak
