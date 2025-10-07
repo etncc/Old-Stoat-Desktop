@@ -37,7 +37,7 @@ jobs:
       #with:
        # path: ~/Stoat-linux/
         #name: Stoat-linux
-build-windows:
+ build-windows:
   runs-on: windows-latest
 
   steps:
