@@ -11,16 +11,16 @@ export async function connectRPC() {
 
         rpc.on("ready", () =>
             rpc.setActivity({
-                state: "revolt.chat",
+                state: "stoat.chat",
                 details: "Chatting with others",
                 largeImageKey: "qr",
-                largeImageText: "Communication is critical – use Revolt.",
+                largeImageText: "Communication is critical – use Stoat.",
                 buttons: [
                     {
-                        label: "Join Revolt",
-                        url: "https://app.revolt.chat/",
+                        label: "Join Stoat",
+                        url: "https://stoat.chat/app",
                     },
-                    { label: "Website", url: "https://revolt.chat" },
+                    { label: "Website", url: "https://stoat.chat/" },
                 ],
             }),
         );
