@@ -54,6 +54,7 @@ jobs:
         yarn build:windows --publish never
     - name: Pack Build Files
       run: |
+        mkdir D:\a\desktop\desktop\dist\win-unpacked
         mkdir D:\a\desktop\Stoat-windows
         mv D:\a\desktop\desktop\dist\win-unpacked\* D:\a\desktop\Stoat-windows
         mkdir D:\a\desktop\Stoat-windows-Setup
