@@ -9,34 +9,34 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-linux:
+#  build-linux:
 
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: Install Yarn
-      run: yarn install
-    - name: Build For Linux
-      id: build-linux
-      run: |
-        yarn build:bundle
-        yarn build:linux --publish never
-    - name: Pack Build Files
-      run: |
-        mkdir ~/Stoat-linux-AppImage
-        mv dist/*.AppImage ~/Stoat-linux-AppImage
-        mkdir ~/Stoat-linux
-        mv dist/*.tar.gz ~/Stoat-linux
-    - name: Publish AppImage
-      uses: actions/upload-artifact@v4
-      with:
-        path: ~/Stoat-linux-AppImage
-        name: Stoat-linux-AppImage
-    - name: Publish Tarfile
-      uses: actions/upload-artifact@v4
-      with:
-        path: ~/Stoat-linux/
-        name: Stoat-linux
+ #   runs-on: ubuntu-latest
+  #  steps:
+   # - uses: actions/checkout@v4
+    #- name: Install Yarn
+     # run: yarn install
+    #- name: Build For Linux
+     # id: build-linux
+      #run: |
+     #   yarn build:bundle
+      #  yarn build:linux --publish never
+   # - name: Pack Build Files
+    #  run: |
+     #   mkdir ~/Stoat-linux-AppImage
+      #  mv dist/*.AppImage ~/Stoat-linux-AppImage
+       # mkdir ~/Stoat-linux
+        #mv dist/*.tar.gz ~/Stoat-linux
+    #- name: Publish AppImage
+     # uses: actions/upload-artifact@v4
+      #with:
+       # path: ~/Stoat-linux-AppImage
+        #name: Stoat-linux-AppImage
+    #- name: Publish Tarfile
+     # uses: actions/upload-artifact@v4
+      #with:
+       # path: ~/Stoat-linux/
+        #name: Stoat-linux
   build-windows:
 
     runs-on: windows-latest
