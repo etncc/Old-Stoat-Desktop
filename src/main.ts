@@ -62,7 +62,7 @@ function createWindow() {
     });
     mainWindow = new BrowserWindow({
         autoHideMenuBar: true,
-        title: "Revolt",
+        title: "Stoat",
         icon: WindowIcon,
 
         frame: initialConfig.frame,
@@ -237,12 +237,12 @@ function createWindow() {
     function buildMenu() {
         tray.setContextMenu(
             Menu.buildFromTemplate([
-                { label: "Revolt", type: "normal", enabled: false },
+                { label: "Stoat", type: "normal", enabled: false },
                 { label: "---", type: "separator" },
                 {
                     label: mainWindow.isVisible()
-                        ? "Hide Revolt"
-                        : "Show Revolt",
+                        ? "Hide Stoat"
+                        : "Show Stoat",
                     type: "normal",
                     click: function () {
                         if (mainWindow.isVisible()) {
@@ -253,7 +253,7 @@ function createWindow() {
                     },
                 },
                 {
-                    label: "Restart Revolt",
+                    label: "Restart Stoat",
                     type: "normal",
                     click: function () {
                         app.shouldRelaunch = true;
@@ -261,7 +261,7 @@ function createWindow() {
                     },
                 },
                 {
-                    label: "Quit Revolt",
+                    label: "Quit Stoat",
                     type: "normal",
                     click: function () {
                         app.shouldQuit = true;
@@ -273,7 +273,7 @@ function createWindow() {
     }
 
     buildMenu();
-    tray.setToolTip("Revolt");
+    tray.setToolTip("Stoat");
     tray.setImage(trayIcon);
 }
 
