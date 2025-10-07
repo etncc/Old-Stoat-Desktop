@@ -120,3 +120,31 @@ jobs:
       with:
         path: ${{ github.workspace }}/Stoat-flatpak
         name: Stoat-flatpak
+
+ build-macos:
+  runs-on: macos-11
+
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Yarn
+      run: yarn install
+
+    - name: Build For macOS
+      run: |
+        yarn build:bundle
+        yarn build:mac --publish never
+
+    - name: Debug dist folder
+      run: ls -R dist
+
+    - name: Pack Build Files
+      run: |
+        mkdir -p "${GITHUB_WORKSPACE}/Stoat-macOS-universal"
+        mv dist/*-universal.dmg "${GITHUB_WORKSPACE}/Stoat-macOS-universal" || echo "No DMG found"
+
+    - name: Publish Build Files
+      uses: actions/upload-artifact@v4
+      with:
+        path: ${{ github.workspace }}/Stoat-macOS-universal
+        name: Stoat-macOS-universal
