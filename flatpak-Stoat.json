@@ -1,0 +1,31 @@
+{
+  "id": "com.oldstoatdesktop.App",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "22.08",
+  "sdk": "org.freedesktop.Sdk",
+  "command": "oldstoatdesktop",
+  "finish-args": [
+    "--share=network",
+    "--share=ipc",
+    "--device=dri",
+    "--socket=x11",
+    "--socket=wayland",
+    "--filesystem=home"
+  ],
+  "modules": [
+    {
+      "name": "stoat",
+      "buildsystem": "simple",
+      "build-commands": [
+        "mkdir -p /app/bin",
+        "cp -r * /app/bin/"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": "dist/linux-unpacked/"
+        }
+      ]
+    }
+  ]
+}
