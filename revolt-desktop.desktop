@@ -1,9 +1,9 @@
 [Desktop Entry]
-Name=Revolt
+Name=Stoat
 Comment=User-first chat platform. 
-Exec=revolt-desktop
+Exec=stoat-desktop
 Terminal=false
 Type=Application
 Icon=revolt-desktop
 Categories=Network;InstantMessaging
-StartupWMClass=RevoltDesktop
+StartupWMClass=StoatDesktop
