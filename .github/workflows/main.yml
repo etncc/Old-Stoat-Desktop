@@ -13,7 +13,7 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install Yarn
       run: yarn install
     - name: Build For Linux
@@ -28,12 +28,12 @@ jobs:
         mkdir ~/Stoat-linux
         mv dist/*.tar.gz ~/Stoat-linux
     - name: Publish AppImage
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         path: ~/Stoat-linux-AppImage
         name: Stoat-linux-AppImage
     - name: Publish Tarfile
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         path: ~/Stoat-linux/
         name: Stoat-linux
@@ -42,7 +42,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Enable Developer Command Prompt
       uses: ilammy/msvc-dev-cmd@v1.12.1
     - name: Install Yarn
@@ -61,17 +61,17 @@ jobs:
         mkdir D:\a\desktop\Stoat-windows-appx
         mv D:\a\desktop\desktop\dist\*.appx D:\a\desktop\Stoat-windows-appx
     - name: Publish Zipfile
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         path: D:\a\desktop\Stoat-windows
         name: Stoat-windows
     - name: Publish Installer
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         path: D:\a\desktop\Stoat-windows-Setup.exe
         name: Stoat-windows-Setup
     - name: Publish Appx
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         path: D:\a\desktop\Stoat-windows-appx
         name: Stoat-windows-appx
@@ -80,7 +80,7 @@ jobs:
     runs-on: macos-11
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install Yarn
       run: yarn install
     - name: Build For macOS
@@ -89,7 +89,7 @@ jobs:
         yarn build:mac --publish never
         mv dist/*-universal.dmg ~/Stoat-macOS-universal.dmg
     - name: Publish Build Files
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         path: ~/Stoat-macOS-universal.dmg
         name: Stoat-macOS-universal
